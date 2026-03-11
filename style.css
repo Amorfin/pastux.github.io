@@ -453,3 +453,45 @@ button:active { transform: translateY(1px); }
   .upgrade, .shop-item { padding: 6px 8px; font-size: 13px; }
   .quests { max-height: 180px; }
 }
+
+@media (max-height: 520px) and (orientation: landscape) {
+  #hud {
+    top: 6px;
+    left: 6px;
+    right: 36vw;
+    gap: 6px;
+  }
+
+  .hud-chip {
+    font-size: 11px;
+    padding: 4px 7px;
+  }
+
+  #sidePanel {
+    top: 6px;
+    right: 6px;
+    width: 34vw;
+    max-height: calc(100vh - 120px);
+  }
+
+  #controls {
+    left: 6px;
+    right: calc(34vw + 12px);
+    bottom: 6px;
+    transform: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    width: auto;
+  }
+
+  #controls button {
+    font-size: 11px;
+    padding: 6px 6px;
+  }
+
+  .card { padding: 8px; }
+  .collapse-toggle { padding: 6px 8px; font-size: 13px; }
+  .upgrade, .shop-item { padding: 6px 8px; font-size: 12px; }
+  .quests { max-height: 160px; }
+}
