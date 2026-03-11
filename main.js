@@ -1,5 +1,5 @@
-﻿
-/* Clouds & Sheep Meadow - main.js */
+
+/* Пастух: Овцы и Облака - main.js */
 (() => {
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
@@ -1835,6 +1835,7 @@
 
   init();
 })();
+
 
 
 
