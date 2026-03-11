@@ -1,0 +1,155 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clouds & Sheep Meadow</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="gameRoot">
+    <canvas id="gameCanvas" aria-label="Игровое поле"></canvas>
+
+    <div id="hud">
+      <div class="hud-chip">Овцы: <span id="sheepCount">0</span></div>
+      <div class="hud-chip">Уровень: <span id="level">1</span></div>
+      <div class="hud-chip">Шерсть: <span id="wool">0</span></div>
+      <div class="hud-chip">Монеты: <span id="coins">0</span></div>
+      <div class="hud-chip">Уход: <span id="care">100%</span></div>
+      <div class="hud-chip">Сезон: <span id="seasonLabel">Весна</span></div>
+      <div class="hud-chip">Погода: <span id="weatherLabel">Солнечно</span></div>
+      <div class="hud-chip">Режим: <span id="mode">Свободно</span></div>
+    </div>
+
+    <div id="sidePanel">
+      <div class="card collapsible" data-section="upgrades">
+        <button class="collapse-toggle" aria-expanded="true">Улучшения</button>
+        <div class="card-content">
+          <button id="upgWool" class="upgrade">
+            Шерстяной бонус
+            <span class="cost" id="upgWoolCost">0</span>
+          </button>
+          <div class="mini">Уровень: <span id="upgWoolLevel">0</span></div>
+
+          <button id="upgCalm" class="upgrade">
+            Спокойные овцы
+            <span class="cost" id="upgCalmCost">0</span>
+          </button>
+          <div class="mini">Уровень: <span id="upgCalmLevel">0</span></div>
+
+          <button id="upgHerd" class="upgrade">
+            Больше овец
+            <span class="cost" id="upgHerdCost">0</span>
+          </button>
+          <div class="mini">Уровень: <span id="upgHerdLevel">0</span></div>
+
+          <button id="upgInfra" class="upgrade">
+            Инфраструктура
+            <span class="cost" id="upgInfraCost">0</span>
+          </button>
+          <div class="mini">Лимиты: <span id="upgInfraLevel">0</span></div>
+        </div>
+      </div>
+
+      <div class="card collapsible" data-section="quests">
+        <button class="collapse-toggle" aria-expanded="true">Задания</button>
+        <div class="card-content quests">
+          <div id="questList"></div>
+        </div>
+      </div>
+
+      <div class="card collapsible" data-section="shop">
+        <button class="collapse-toggle" aria-expanded="true">Магазин</button>
+        <div class="card-content">
+          <button id="exchangeBtn" class="upgrade">
+            Обменять 5 шерсти на 1 монету
+            <span class="cost">5</span>
+          </button>
+          <div class="mini">Монеты: <span id="shopCoins">0</span></div>
+
+          <div class="shop-title">Ландшафт</div>
+          <button id="landMeadow" class="shop-item">Луг (бесплатно)</button>
+          <button id="landLavender" class="shop-item">Лавандовый луг (8)</button>
+          <button id="landSunset" class="shop-item">Закатное поле (10)</button>
+          <button id="landWinter" class="shop-item">Снежный луг (12)</button>
+
+          <div class="shop-title">Скины стада</div>
+          <button id="skinNatural" class="shop-item">Натуральный (бесплатно)</button>
+          <button id="skinSky" class="shop-item">Небесный (4)</button>
+          <button id="skinRose" class="shop-item">Розовый (4)</button>
+          <button id="skinCaramel" class="shop-item">Карамельный (5)</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="controls">
+      <button id="buildFence" class="ghost">Забор</button>
+      <button id="rotateFence" class="ghost">Повернуть</button>
+      <button id="buildFeeder" class="ghost">Кормушка</button>
+      <button id="whistleBtn" class="ghost">Свисток</button>
+      <button id="adBtn" class="ghost">Реклама + бонус</button>
+      <button id="helpBtn" class="ghost">?</button>
+      <button id="pauseBtn" class="primary">Пауза</button>
+      <button id="restartBtn" class="ghost">Перезапуск</button>
+      <button id="menuBtn" class="ghost">Меню</button>
+    </div>
+
+    <div id="toast"></div>
+
+    <div id="menu" class="overlay active">
+      <div class="panel">
+        <h1>Clouds & Sheep Meadow</h1>
+        <p>Уютный луг, облака и дружелюбные овцы. Кликайте по овцам, собирайте шерсть и стройте объекты.</p>
+        <ul>
+          <li>Клик по овце: накормить или собрать шерсть</li>
+          <li>Овцу можно перетащить в другое место</li>
+          <li>Скрещивание: перетащи овцу на овцу того же уровня</li>
+          <li>Появляются легендарные овцы с редкими узорами</li>
+          <li>Погода и сезоны влияют на шерсть и настроение</li>
+          <li>Задания дают награды шерстью и монетами</li>
+          <li>Меняй ландшафт и скин в магазине</li>
+        </ul>
+        <button id="startBtn" class="primary">Начать игру</button>
+        <div id="bestInfo" class="stats"></div>
+      </div>
+    </div>
+
+    <div id="pause" class="overlay">
+      <div class="panel">
+        <h2>Пауза</h2>
+        <p>Нажмите «Продолжить», чтобы вернуться к лугу.</p>
+        <button id="resumeBtn" class="primary">Продолжить</button>
+      </div>
+    </div>
+
+    <div id="help" class="overlay">
+      <div class="panel">
+        <h2>Подсказки</h2>
+        <ul>
+          <li>Клик по овце: накормить или собрать шерсть</li>
+          <li>Овцу можно перетащить в другое место</li>
+          <li>Скрещивание: перетащи овцу на овцу того же уровня</li>
+          <li>Забор можно поворачивать (R) и тянуть для серии</li>
+          <li>Свисток (C) собирает овец у курсора</li>
+          <li>Следи за «Уходом» — без заботы овцы уйдут</li>
+          <li>Погода и сезоны меняют скорость шерсти</li>
+          <li>Задания дают монеты и шерсть</li>
+          <li>Реклама даёт бонусы (пока заглушка)</li>
+        </ul>
+        <button id="helpClose" class="primary">Понятно</button>
+      </div>
+    </div>
+
+    <div id="gameOver" class="overlay">
+      <div class="panel">
+        <h2>Стадо исчезло</h2>
+        <p>Овцам не хватило заботы. Попробуй снова и удержи их на лугу.</p>
+        <button id="gameOverRestart" class="primary">Играть снова</button>
+        <button id="gameOverMenu" class="ghost">В меню</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
