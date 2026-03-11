@@ -348,3 +348,108 @@ button:active { transform: translateY(1px); }
 .card.collapsed .card-content {
   display: none;
 }
+
+@media (max-width: 720px) and (orientation: portrait) {
+  #hud {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    gap: 6px;
+  }
+
+  .hud-chip {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  #controls {
+    left: 50%;
+    bottom: 6px;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    width: 96vw;
+  }
+
+  #controls button {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px 8px;
+  }
+
+  #sidePanel {
+    left: 50%;
+    right: auto;
+    bottom: 118px;
+    transform: translateX(-50%);
+    width: 96vw;
+    max-height: 34vh;
+  }
+
+  .card { padding: 10px; }
+  .collapse-toggle { padding: 6px 8px; font-size: 14px; }
+  .upgrade, .shop-item { padding: 6px 8px; font-size: 13px; }
+  .quests { max-height: 200px; }
+}
+
+@media (max-width: 720px) and (orientation: portrait) {
+  #hud {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    gap: 6px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-gutter: stable;
+  }
+
+  #hud::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  #hud::-webkit-scrollbar-thumb {
+    background: rgba(30, 42, 58, 0.25);
+    border-radius: 999px;
+  }
+
+  .hud-chip {
+    flex: 0 0 auto;
+    font-size: 11px;
+    padding: 4px 8px;
+    white-space: nowrap;
+  }
+
+  #sidePanel {
+    top: 56px;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translateX(-50%);
+    width: 96vw;
+    max-height: 30vh;
+  }
+
+  #controls {
+    left: 50%;
+    bottom: max(6px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    width: 96vw;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  #controls button {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px 6px;
+  }
+
+  .card { padding: 10px; }
+  .collapse-toggle { padding: 6px 8px; font-size: 14px; }
+  .upgrade, .shop-item { padding: 6px 8px; font-size: 13px; }
+  .quests { max-height: 180px; }
+}
